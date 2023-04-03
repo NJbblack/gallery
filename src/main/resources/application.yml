@@ -1,0 +1,43 @@
+#server port
+server:
+  port: 9091
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+
+#spring setting
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1522:xe
+    username: CCC
+    password: 1234
+
+  thymeleaf:
+    cache: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+      location: C:/upload/
+
+logging:
+  level:
+    root: INFO
+    "[com.jjang051.replyboard03]": DEBUG
+
+mybatis:
+  mapper-locations: classpath:mapper/sqlmapper/**/*.xml
+  config-location: classpath:mapper/config/config.xml
+  type-aliases-package: com.jjang051.replyboard03.dto
+
+#나는 세팅 모든게 다 세팅
+
+file:
+  path: C:/UploadedFiles/

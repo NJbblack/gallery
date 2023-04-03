@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/layout/layout.html}"
+>
+  <head>
+    <title>BOARD WRITE</title>
+  </head>
+  <body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <h2>VIEW</h2>
+
+      <table class="table mt-5">
+        <colgroup>
+          <col class="th" />
+          <col class="td" />
+        </colgroup>
+        <tbody>
+          <tr>
+            <th>SUBJECT</th>
+            <td th:text="${replyBoardDto.subject}">subject</td>
+          </tr>
+          <tr>
+            <th scope="row">WRITER</th>
+            <td th:text="${replyBoardDto.writer}">writer</td>
+          </tr>
+          <tr>
+            <th scope="row">DATE</th>
+            <td th:text="${replyBoardDto.regDate}">regDate</td>
+          </tr>
+          <tr>
+            <th scope="row">HIT</th>
+            <td th:text="${replyBoardDto.hit}">hit</td>
+          </tr>
+          <tr>
+            <th scope="row">CONTENTS</th>
+            <td>
+              <div th:text="${replyBoardDto.contents}" class="contents"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="btns text-center">
+        <a href="/board/list" class="btn btn-lg btn-primary">LIST</a>
+        <a
+          href="/board/modify?writer=jjang051"
+          class="btn btn-lg btn-primary"
+          th:href="@{/board/modify(no=${replyBoardDto.no},writer=${replyBoardDto.writer})}"
+          >MODIFY</a
+        >
+        <a
+          href="/board/reply"
+          th:href="@{/board/reply(no=${replyBoardDto.no},reGroup=${replyBoardDto.reGroup}, reLevel=${replyBoardDto.reLevel}, reStep=${replyBoardDto.reStep})}"
+          class="btn btn-lg btn-primary"
+          >REPLY</a
+        >
+        <a
+          href="/board/delete"
+          th:href="@{/board/delete(no=${replyBoardDto.no})}"
+          class="btn btn-lg btn-primary"
+          >DELETE</a
+        >
+        <a
+          href="/board/delete_ajax"
+          th:href="@{/board/delete_ajax(no=${replyBoardDto.no})}"
+          class="btn btn-lg btn-primary"
+          id="btnDeleteAjax"
+          >DELETE-AJAX</a
+        >
+      </div>
+
+      <div class="mt-5 prevAndNext">
+        <div>
+          <span>prev</span>
+
+          <a
+            href=""
+            th:if="${prevBoardDto != null}"
+            th:text="${prevBoardDto.subject}"
+            th:href="@{/board/view(no=${prevBoardDto.no},num=${prevBoardDto.num})}"
+            >이전 글</a
+          >
+
+          <a href="" class="none" th:unless="${prevBoardDto != null}"
+            >이전 글이 없습니다.</a
+          >
+        </div>
+        <div>
+          <span>next</span>
+          <a
+            href=""
+            th:if="${nextBoardDto != null}"
+            th:text="${nextBoardDto.subject}"
+            th:href="@{/board/view(no=${nextBoardDto.no},num=${nextBoardDto.num})}"
+            >다음 글</a
+          >
+          <a href="" class="none" th:unless="${nextBoardDto != null}"
+            >다음 글이 없습니다.</a
+          >
+        </div>
+      </div>
+    </div>
+    <script></script>
+  </body>
+</html>

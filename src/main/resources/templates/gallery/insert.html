@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/layout/layout.html}"
+>
+  <head>
+    <title>BOARD WRITE</title>
+  </head>
+  <body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <h1>insert</h1>
+      <div class="form insert">
+        <form
+          action="/gallery/insertGallery"
+          method="post"
+          enctype="multipart/form-data"
+          class="mt-5"
+        >
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingInput"
+              placeholder="title"
+              name="title"
+            />
+            <label for="floatingInput mb-3">title</label>
+          </div>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="contents"
+              id="contents"
+              name="contents"
+            ></textarea>
+            <label for="floatingTextarea mb-3">contents</label>
+          </div>
+          <hr />
+          <div class="mb-3">
+            <input
+              class="form-control"
+              type="file"
+              id="originalFile"
+              name="file"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">submit</button>
+          <button type="reset" class="btn btn-secondary btn-sm">reset</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

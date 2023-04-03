@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>replyboard</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.6.4.min.js"></script>
+    <script src="/summernote/summernote-lite.js"></script>
+    <link rel="stylesheet" href="/summernote/summernote-lite.css" />
+  </head>
+  <body>
+    <header class="p-3 bg-dark text-white">
+      <div class="container">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+          >
+            JJANG'S MEDIA LAB
+          </a>
+
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+          >
+            <li><a href="/" class="nav-link px-2 text-white">ABOUT</a></li>
+            <li>
+              <a href="/board/list" class="nav-link px-2 text-secondary"
+                >BOARD</a
+              >
+            </li>
+            <li><a href="#" class="nav-link px-2 text-white">FAQ</a></li>
+          </ul>
+
+          <div class="text-end" th:if="${session.loggedMember == null}">
+            <a href="/member/login" class="btn btn-outline-light me-2">Login</a>
+            <a href="/member/join" class="btn btn-warning">Sign-up</a>
+          </div>
+
+          <div class="text-end" th:unless="${session.loggedMember == null}">
+            <a href="/member/info" class="btnInfo">
+              <span th:text="${session.loggedMember.userName}">userName</span>
+              <span>
+                <!-- <img src="/images/fjkdjs.jpg" alt="" th:src="${session.loggedMember.renameFilePath}" /> -->
+                <img
+                  src="/images/fjkdjs.jpg"
+                  alt=""
+                  th:src="@{|/upload/${session.loggedMember.renameFilePath}|}"
+                />
+              </span>
+            </a>
+            <a href="/member/logout">로그아웃</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="container" id="contents" layout:fragment="contents">
+        <h2>BOARD</h2>
+      </div>
+    </main>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">BOARD</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">FAQ</a>
+          </li>
+        </ul>
+        <p class="text-center text-muted">© 2021 Company, Inc</p>
+      </footer>
+    </div>
+    <div class="modal fade" tabindex="-1" id="memoModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p th:text="${msg}">Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer text-center">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="deleteModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">삭제하시겠습니까?</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="password" class="form-label">PASSWORD</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="password"
+                name="password"
+              />
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="btnDeleteConfirm"
+              data-bs-dismiss="modal"
+            >
+              CONFIRM
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              CLOSE
+            </button>
+
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+            /*<![CDATA[*/
+              const msg = [[${msg}]];
+              const param = [[${param}]];
+              const session = [[${session}]];
+
+
+
+              console.log(session);
+              console.log(param);
+
+
+
+              const memoModal = new bootstrap.Modal("#memoModal");
+              const deleteModal = new bootstrap.Modal("#deleteModal");
+
+              let isState = null;
+              if(msg){
+                memoModal.show();
+              }
+              $("#btnDeleteAjax").on("click",function(e){
+                //e.preventDefault();
+                isState="delete";
+                $("#deleteModal .modal-title").text("비밀번호를 입력해 주세요.~~~~");
+                deleteModal.show();
+                return false;
+              });
+
+              $(".btnInfo").on("click",function(){
+                isState="info";
+                deleteModal.show();
+                $("#deleteModal .modal-title").text("비밀번호를 입력해 주세요.");
+                return false;
+              });
+              $("#btnDeleteConfirm").on("click",function(e){
+                  if(isState==="info") {
+                    const pw = session.loggedMember.userPw;
+                    console.log(pw);
+                    if($("#password").val()==pw){
+                      location.href="/member/info";
+                    } else {
+                      history.back();
+                    }
+                  } else {
+                      console.log(param.no[0]);
+                      $.ajax({
+                        url:"/board/deleteAjaxProcess",
+                        data:{"no":param.no[0],"password":$("#password").val()},
+                        type:"POST",
+                        success:function(response){
+                          console.log(response);
+                          if(response.msg==="ok") {
+                            setTimeout(function(){
+                              location.href="/board/list";
+                            },500)
+                          } else {
+                            location.reload();
+                          }
+                        },
+                      })
+                  }
+              })
+              // $("#btnDeleteConfirm").on("click",function(e){
+              //   console.log("이건 밑에꺼");
+              //   $.ajax({
+              //     url:"/board/deleteAjaxProcess",
+              //     data:{"no":no,"password":$("#password").val()},
+              //     type:"POST",
+              //     success:function(response){
+              //       console.log(response);
+              //       if(response.msg==="ok") {
+              //         setTimeout(function(){
+              //           location.href="/board/list";
+              //         },500)
+              //       } else {
+              //         location.reload();
+              //       }
+              //     },
+              //   })
+              // });
+
+
+            /*]]>*/
+
+            $(document).ready(function() {
+          	$('#summernote').summernote({
+      		  height: 300,                 // 에디터 높이
+      		  minHeight: null,             // 최소 높이
+      		  maxHeight: null,             // 최대 높이
+      		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+      		  lang: "ko-KR",					// 한글 설정
+      		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+
+      	});
+      });
+    </script>
+  </body>
+</html>

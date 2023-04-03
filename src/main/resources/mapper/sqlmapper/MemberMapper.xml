@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bb.gallery.dao.MemberDao">
+
+
+  <insert id="insertMember" parameterType="MemberDto">
+    INSERT INTO PRACMEMBER  VALUES (
+      PRACMEMBER_SEQ.NEXTVAL,
+      #{userId},
+      #{userPw},
+      #{email},
+      #{userName},
+      SYSDATE,
+      #{originalFilePath},
+      #{renameFilePath}
+    )
+  </insert>
+
+  <select id="loginMember" parameterType="MemberDto" resultType="MemberDto">
+    SELECT * FROM PRACMEMBER where USERID = #{userId} AND userPw = #{userPw}
+  </select>
+
+
+</mapper>

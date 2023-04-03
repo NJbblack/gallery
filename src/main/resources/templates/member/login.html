@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+                xmlns:th="http://www.thymeleaf.org" 
+                layout:decorate="~{/layout/layout.html}">
+<head>
+  <title>MEMBER LOGIN</title>
+</head>
+<body>
+  <div class="container" id="contents" layout:fragment="contents">
+    <h2>LOGIN</h2>
+    <form action="/member/loginProcess" method="post" class="joinForm">
+      <h3 class="h3 mb-3 mt-5 fw-normal">Please Log In</h3>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" placeholder="User Id" name="userId">
+        <label for="floatingInput">User Id</label>
+      </div>
+      <div class="form-floating mt-2">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="userPw">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <hr>
+      <div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+        <hr>
+        <a href="/member/login" class="btn btn-lg btn-primary w-100">Sign In</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

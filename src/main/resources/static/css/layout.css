@@ -1,0 +1,143 @@
+body {
+  color: #111;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#main {
+  padding: 100px 0;
+}
+
+table .contents {
+  min-height: 300px;
+  white-space: pre-wrap;
+}
+table .th {
+  width: 200px;
+  background-color: #f8f8f8;
+}
+
+.space:before {
+  font-family: "Material Icons";
+  content: "\e5da";
+  display: inline;
+}
+
+.space1 {
+  padding-left: 0px;
+}
+
+.space2 {
+  padding-left: 20px;
+}
+
+.space3 {
+  padding-left: 40px;
+}
+
+.space4 {
+  padding-left: 60px;
+}
+
+#searchForm {
+  padding: 0 150px;
+  display: flex;
+}
+#searchForm select {
+  flex-basis: 200px;
+}
+#searchForm input {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+#searchForm button {
+  flex-basis: 150px;
+}
+
+a.none {
+  pointer-events: none;
+}
+
+.prevAndNext {
+  display: flex;
+  flex-direction: column;
+}
+.prevAndNext div {
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+}
+.prevAndNext div:nth-child(1) {
+  border-top: 1px solid #ccc;
+}
+.prevAndNext div span {
+  flex-basis: 200px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.prevAndNext div a {
+  flex-grow: 1;
+}
+
+.joinForm {
+  width: 400px;
+  margin: auto;
+}
+
+.errorTxt {
+  color: #f00;
+  font-size: 12px;
+  margin: 5px;
+}
+.errorTxt:before {
+  content: "*";
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.btnInfo img {
+  width: 80px;
+  height: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 100%;
+}
+
+.form.insert {
+  width: 600px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+li {
+  list-style: none;
+}
+
+.view.gallery {
+  width: 640px;
+  margin: 100px auto;
+}
+.view.gallery .card {
+  padding: 20px;
+}
+.view.gallery a {
+  text-decoration: none;
+}
+
+.list.gallery {
+  width: 640px;
+  margin: 100px auto;
+}
+.list.gallery li .card {
+  padding: 20px;
+}
+.list.gallery li a {
+  text-decoration: none;
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bb.gallery.dao.ReplyBoardDao">
+  <sql id="search">
+    <if test="category != null and searchTxt!=''">
+      <choose>
+        <when test="category=='all'">
+            WHERE 
+              (subject LIKE '%' || #{searchTxt} || '%') OR
+              (writer LIKE '%' || #{searchTxt} || '%') OR
+              (contents LIKE '%' || #{searchTxt} || '%') 
+        </when>
+        <when test="category=='subject'">
+            WHERE 
+              (subject LIKE '%' || #{searchTxt} || '%') 
+        </when>
+        <when test="category=='writer'">
+            WHERE 
+              (writer LIKE '%' || #{searchTxt} || '%') 
+        </when>
+        <when test="category=='contents'">
+            WHERE 
+              (contents LIKE '%' || #{searchTxt} || '%') 
+        </when>
+      </choose>
+    </if>
+  </sql>
+
+  <insert id="insertBoard" parameterType="ReplyBoardDto">
+    INSERT INTO PRACBOARD VALUES (
+      PRACBOARD_SEQ.NEXTVAL,
+      #{subject},
+      #{writer},
+      #{password},
+      SYSDATE,
+      #{contents},
+      1,
+      #{reGroup},
+      #{reLevel},
+      #{reStep},
+      0
+    )
+  </insert>
+  <insert id="insertReplyBoard" parameterType="ReplyBoardDto">
+    INSERT INTO PRACBOARD VALUES (
+      PRACBOARD_SEQ.NEXTVAL,
+      #{subject},
+      #{writer},
+      #{password},
+      SYSDATE,
+      #{contents},
+      1,
+      #{reGroup},
+      #{reLevel},
+      #{reStep},
+      0
+    )
+  </insert>
+  <select id="getAllBoardList" resultType="ReplyBoardDto" parameterType="HashMap">
+    <!-- SELECT * FROM PRACBOARD -->
+
+    SELECT ROWNUM AS NUM, B.* from
+      ( SELECT * FROM PRACBOARD   
+    <include refid="search" />
+     ORDER BY REGROUP DESC, RELEVEL ASC ) B
+  </select>
+
+  <select id="getSelectOne" resultType="ReplyBoardDto" parameterType="Integer">
+    SELECT * FROM PRACBOARD WHERE NO = #{no}
+  </select>
+
+  <select id="getMaxReGroup" resultType="Integer">
+    SELECT NVL(MAX(REGROUP),1) AS REGROUPMAX FROM PRACBOARD
+  </select>
+
+  <update id="updateHit" parameterType="Integer">
+    UPDATE PRACBOARD SET HIT = HIT + 1 WHERE NO = #{no}
+  </update>
+
+  <update id="updateReLevel" parameterType="ReplyBoardDto">
+    UPDATE PRACBOARD SET RELEVEL = RELEVEL + 1 
+    WHERE REGROUP = #{reGroup} AND RELEVEL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <![CDATA[ > ]]> #{reLevel}
+  </update>
+
+  <update id="deleteReplyBoard" parameterType="ReplyBoardDto">
+    UPDATE PRACBOARD SET AVAILABLE = 0 WHERE NO = #{no} AND PASSWORD = #{password}
+  </update>
+
+  <update id="modifyReplyBoard" parameterType="ReplyBoardDto">
+    UPDATE PRACBOARD SET 
+                            SUBJECT = #{subject}, 
+                                                                                                            <!-- WRITER = #{writer},  -->
+                            CONTENTS = #{contents}
+                        WHERE NO = #{no} and PASSWORD = #{password}
+  </update>
+
+
+  <select id="getPrevSelect" parameterType="Integer" resultType="ReplyBoardDto">
+    SELECT * FROM 
+     (SELECT ROWNUM AS NUM, B.* from
+      ( SELECT * FROM PRACBOARD ORDER BY REGROUP DESC, RELEVEL ASC ) B)
+    WHERE NUM = #{NUM} - 1
+  </select>
+
+  <select id="getNextSelect" parameterType="Integer" resultType="ReplyBoardDto">
+    SELECT * FROM 
+     (SELECT ROWNUM AS NUM, B.* from
+      ( SELECT * FROM PRACBOARD ORDER BY REGROUP DESC, RELEVEL ASC ) B)
+    WHERE NUM = #{NUM} + 1
+  </select>
+
+</mapper>

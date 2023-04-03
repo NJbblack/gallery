@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+                xmlns:th="http://www.thymeleaf.org" 
+                layout:decorate="~{/layout/layout.html}">
+<head>
+  <title>MEMBER INFO</title>
+</head>
+<body>
+  <div class="container" id="contents" layout:fragment="contents">
+    <h2>INFO</h2>
+    <table class="table mt-5">
+      <colgroup>
+        <col class="th">
+        <col class="td">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <td th:text="${session.loggedMember.userName}">userName</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td th:text="${session.loggedMember.email}">userName</td>
+        </tr>
+        <tr>
+          <th>UserId</th>
+          <td th:text="${session.loggedMember.userId}">userName</td>
+        </tr>
+        
+      </tbody>
+    </table>
+    <div class="btns text-center">
+      <a href="/" class="btn btn-lg btn-primary">Home</a>
+      <a href="/member/infoForm" class="btn btn-lg btn-primary">MODIFY</a>
+      <a href="/member/delete" class="btn btn-lg btn-primary">DELETE</a>
+    </div>
+  </div>
+</body>
+</html>

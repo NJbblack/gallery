@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/layout/layout.html}"
+>
+  <head>
+    <title>BOARD WRITE</title>
+  </head>
+  <body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <div class="view gallery">
+        <div class="card w-100">
+          <img
+            th:src="@{|/upload/${galleryDto.renamed}|}"
+            class="card-img-top"
+            alt="..."
+            style="height: 300px; width: 250px"
+          />
+          <div class="card-body">
+            <h3 class="card-title" th:text="${galleryDto.title}">Card title</h3>
+            <p class="card-text" th:text="${galleryDto.contents}">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+            <!-- <span class="btn btn-primary w-100 btn-lg">LINK</span> -->
+            <div class="replyBox">
+              <ul>
+                <li>댓글이 출력됩니다.</li>
+                <li>댓글이 출력됩니다.</li>
+                <li>댓글이 출력됩니다.</li>
+                <li>댓글이 출력됩니다.</li>
+              </ul>
+            </div>
+            <hr />
+            <div class="mb-3">
+              <!-- <label for="exampleFormControlTextarea1" class="form-label">Please Write Reply</label> -->
+              <textarea
+                class="form-control reply"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                placeholder="Please Write Reply"
+              ></textarea>
+              <hr />
+              <div class="btns text-end">
+                <button class="btn btn-primary" id="btnConfirm">CONFIRM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="btns text-center">
+          <a href="/" class="btn btn-success">LIST</a>
+        </div>
+      </div>
+
+      <script th:inline="javascript">
+        const galleryId = [[${galleryDto.no}]];
+        console.log(galleryId);
+        function loadReply() {
+          const sendData = {
+            galleryId: galleryId,
+          };
+          $.ajax({
+            url: "/gallery/getReply/" + galleryId,
+            data: sendData,
+            type: "POST",
+            success: function (response) {
+              let tempHtml = "";
+              $.each(response, function (idx, item) {
+                tempHtml += `<li>${item.comments}<a href="/gallery/delete?no=${item.no}&galleryId=${item.galleryId}"><span class="material-icons">close</span></a></li>`;
+              });
+              $(".replyBox ul").html(tempHtml);
+            },
+          });
+        }
+        loadReply();
+
+        $("#btnConfirm").on("click", function () {
+          const sendData = {
+            galleryId: galleryId,
+            comments: $(".reply").val(),
+          };
+          $.ajax({
+            url: "/gallery/insertReply",
+            data: sendData,
+            type: "POST",
+            success: function (response) {
+              let tempHtml = "";
+              $.each(response, function (idx, item) {
+                tempHtml += `<li>${item.comments} <a href="/gallery/delete?no=${item.no}&galleryId=${item.galleryId}"><span class="material-icons">close</span></a></li>`;
+              });
+              $(".replyBox ul").html(tempHtml);
+              $(".reply").val("");
+            },
+          });
+        }
+        );
+        // $('.soccerList li').each(function (index, item) {
+        //  console.log(item);
+        // });
+      </script>
+    </div>
+  </body>
+</html>
