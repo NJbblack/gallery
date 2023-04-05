@@ -4,9 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-    <typeAlias alias="ReplyBoardDto" type="com.bb.gallery.dto.ReplyBoardDto" />
-    <typeAlias alias="MemberDto" type="com.bb.gallery.dto.MemberDto" />
-    <typeAlias alias="GalleryDto" type="com.bb.gallery.dto.GalleryDto" />
-    <typeAlias alias="ReplyDto" type="com.bb.gallery.dto.ReplyDto" />
+    <typeAlias alias="MemberDto" type="com.bb.voyage.dto.MemberDto" />
+    <typeAlias alias="FreeBoardDto" type="com.bb.voyage.dto.FreeBoardDto" />
   </typeAliases>
 </configuration>

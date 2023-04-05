@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/layout/layout.html}"
+>
+  <head>
+    <title>FREEBOARD</title>
+  </head>
+  <body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <h2>Free Board</h2>
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr class="text-center">
+            <th>Title</th>
+            <th>Writer</th>
+            <th>Contents</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <td th:text="${freeBoardDto.freeTitle}">Title</td>
+            <td th:text="${memberDto.userNickname}">Writer</td>
+            <td th:text="${freeBoardDto.freeContents}">Contents</td>
+            <td th:text="${freeBoardDto.freeRegDate}">Date</td>
+            <td><a href="" th:href="@{/board/freeboardmodify(no=${freeBoardDto.freeNo})}">Modify</a></td>
+            <td><a href="" th:href="@{/board/freeboarddelete(no=${freeBoardDto.freeNo})}">Delete</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <script></script>
+    </div>
+  </body>
+</html>

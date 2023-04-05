@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/layout/layout.html}"
+>
+  <head>
+    <title>FREEBOARD WRITE</title>
+  </head>
+  <body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <h2>Free Board Write</h2>
+      <form action="/board/freeBoardModify" method="post" class="mt-5" style="z-index:99">
+          <input type="hidden" name="no" th:value="${session.loggedMember.no}">
+          <input type="hidden" name="freeNo" th:value="${freeBoardDto.freeNo}">
+          <div><input type="text" placeholder="Title" name="freeTitle" th:value="${freeBoardDto.freeTitle}" /></div>
+          <div><input type="text" placeholder="Contents" name="freeContents" th:value="${freeBoardDto.freeContents}" /></div>
+          <div><button type="submit">submit</button></div>
+      </form>
+      </div>
+      <script></script>
+    </div>
+  </body>
+</html>

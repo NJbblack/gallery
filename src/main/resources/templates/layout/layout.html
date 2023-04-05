@@ -9,259 +9,136 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>replyboard</title>
+    <link rel="shortcut icon" href="/images/favi.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/aos.css" />
+    <link rel="stylesheet" href="/css/swiper.css" />
+    <link rel="stylesheet" href="/css/lightpick.css" />
+    <link rel="stylesheet" href="/summernote/summernote-lite.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="/css/bootstrap.css" />
-    <link rel="stylesheet" href="/css/layout.css" />
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/aos.js"></script>
+    <script src="/js/swiper-bundle.min.js"></script>
     <script src="/js/jquery-3.6.4.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/summernote/summernote-lite.js"></script>
-    <link rel="stylesheet" href="/summernote/summernote-lite.css" />
+    <script src="/js/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="/js/lightpick.js"></script>
+    <script src="/js/script.js" defer></script>
+    <title>replyboard</title>
   </head>
   <body>
-    <header class="p-3 bg-dark text-white">
-      <div class="container">
-        <div
-          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
-        >
-          <a
-            href="/"
-            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-          >
-            JJANG'S MEDIA LAB
-          </a>
+    <header class="header">
+      <h1 class="logo">
+        <a href="">
+          <img src="/images/logo.png" alt="" class="logo__img--dark" />
+          <img src="/images/logo.png" alt="" class="logo__img--light" />
+        </a>
+      </h1>
 
-          <ul
-            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-          >
-            <li><a href="/" class="nav-link px-2 text-white">ABOUT</a></li>
-            <li>
-              <a href="/board/list" class="nav-link px-2 text-secondary"
-                >BOARD</a
-              >
-            </li>
-            <li><a href="#" class="nav-link px-2 text-white">FAQ</a></li>
-          </ul>
-
-          <div class="text-end" th:if="${session.loggedMember == null}">
-            <a href="/member/login" class="btn btn-outline-light me-2">Login</a>
-            <a href="/member/join" class="btn btn-warning">Sign-up</a>
-          </div>
-
-          <div class="text-end" th:unless="${session.loggedMember == null}">
-            <a href="/member/info" class="btnInfo">
-              <span th:text="${session.loggedMember.userName}">userName</span>
-              <span>
-                <!-- <img src="/images/fjkdjs.jpg" alt="" th:src="${session.loggedMember.renameFilePath}" /> -->
-                <img
-                  src="/images/fjkdjs.jpg"
-                  alt=""
-                  th:src="@{|/upload/${session.loggedMember.renameFilePath}|}"
-                />
-              </span>
-            </a>
-            <a href="/member/logout">로그아웃</a>
-          </div>
-        </div>
+      <nav class="gnb">
+        <h2 class="hidden">global navigation</h2>
+        <ul class="list">
+          <li>
+            <a href="">company</a>
+            <ul class="depth02">
+              <li><a href="">greeting</a></li>
+              <li><a href="">vision</a></li>
+              <li><a href="">history</a></li>
+              <li><a href="">certificates</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="">traveling</a>
+            <ul class="depth02">
+              <li><a href="">asia</a></li>
+              <li><a href="">europe</a></li>
+              <li><a href="">america</a></li>
+              <li><a href="">special</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="">transport</a>
+            <ul class="depth02">
+              <li><a href="#">airplane</a></li>
+              <li><a href="#">bus</a></li>
+              <li><a href="#">train</a></li>
+            </ul>
+          </li>
+          <li><a href="">press</a></li>
+          <li><a href="">career</a></li>
+          <li><a href="">contact</a></li>
+        </ul>
+      </nav>
+      <div class="language">
+        <a href="" class="active">ko</a>
+        <a href="">en</a>
       </div>
     </header>
 
     <main id="main">
-      <div class="container" id="contents" layout:fragment="contents">
-        <h2>BOARD</h2>
-      </div>
+      <div class="container0" id="contents" layout:fragment="contents"></div>
     </main>
-    <div class="container">
-      <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">ABOUT</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">BOARD</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">FAQ</a>
-          </li>
-        </ul>
-        <p class="text-center text-muted">© 2021 Company, Inc</p>
-      </footer>
-    </div>
-    <div class="modal fade" tabindex="-1" id="memoModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-items">
+          <div class="footer__item">
+            <img src="/images/logo.png" alt="" class="footer-logo" />
           </div>
-          <div class="modal-body">
-            <p th:text="${msg}">Modal body text goes here.</p>
+          <div class="footer__item">
+            <h2>Office</h2>
+            <dl>
+              <dt>본사</dt>
+              <dd>울산광역시 남구 매암로28, 201호</dd>
+            </dl>
+            <dl>
+              <dt>연구소</dt>
+              <dd>서울특별시 강남구 테헤란로20길20, 3층</dd>
+            </dl>
+            <dl>
+              <dt>공장</dt>
+              <dd>서울특별시 성동구 광나루로 144, 707호</dd>
+            </dl>
           </div>
-          <div class="modal-footer text-center">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <div class="footer__item">
+            <h2>Contact Us</h2>
+            <dl>
+              <dt>일반 문의</dt>
+              <dd>contact@yoneeki.com</dd>
+            </dl>
+          </div>
+          <div class="footer__item">
+            <h2>Contact Us</h2>
+            <dl>
+              <dt>제품 문의</dt>
+              <dd>product@yoneeki.com</dd>
+            </dl>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="modal fade" tabindex="-1" id="deleteModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">삭제하시겠습니까?</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="password" class="form-label">PASSWORD</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="password"
-                name="password"
-              />
-            </div>
-          </div>
-          <div class="modal-footer text-center">
-            <button
-              type="button"
-              class="btn btn-primary"
-              id="btnDeleteConfirm"
-              data-bs-dismiss="modal"
-            >
-              CONFIRM
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              CLOSE
-            </button>
-
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-          </div>
-        </div>
+      <div class="footer-copyright">
+        <p>ⓒ 2022 Yoneeki Inc. All rights reserved.</p>
       </div>
-    </div>
+    </footer>
 
-    <script th:inline="javascript">
-            /*<![CDATA[*/
-              const msg = [[${msg}]];
-              const param = [[${param}]];
-              const session = [[${session}]];
-
-
-
-              console.log(session);
-              console.log(param);
-
-
-
-              const memoModal = new bootstrap.Modal("#memoModal");
-              const deleteModal = new bootstrap.Modal("#deleteModal");
-
-              let isState = null;
-              if(msg){
-                memoModal.show();
-              }
-              $("#btnDeleteAjax").on("click",function(e){
-                //e.preventDefault();
-                isState="delete";
-                $("#deleteModal .modal-title").text("비밀번호를 입력해 주세요.~~~~");
-                deleteModal.show();
-                return false;
-              });
-
-              $(".btnInfo").on("click",function(){
-                isState="info";
-                deleteModal.show();
-                $("#deleteModal .modal-title").text("비밀번호를 입력해 주세요.");
-                return false;
-              });
-              $("#btnDeleteConfirm").on("click",function(e){
-                  if(isState==="info") {
-                    const pw = session.loggedMember.userPw;
-                    console.log(pw);
-                    if($("#password").val()==pw){
-                      location.href="/member/info";
-                    } else {
-                      history.back();
-                    }
-                  } else {
-                      console.log(param.no[0]);
-                      $.ajax({
-                        url:"/board/deleteAjaxProcess",
-                        data:{"no":param.no[0],"password":$("#password").val()},
-                        type:"POST",
-                        success:function(response){
-                          console.log(response);
-                          if(response.msg==="ok") {
-                            setTimeout(function(){
-                              location.href="/board/list";
-                            },500)
-                          } else {
-                            location.reload();
-                          }
-                        },
-                      })
-                  }
-              })
-              // $("#btnDeleteConfirm").on("click",function(e){
-              //   console.log("이건 밑에꺼");
-              //   $.ajax({
-              //     url:"/board/deleteAjaxProcess",
-              //     data:{"no":no,"password":$("#password").val()},
-              //     type:"POST",
-              //     success:function(response){
-              //       console.log(response);
-              //       if(response.msg==="ok") {
-              //         setTimeout(function(){
-              //           location.href="/board/list";
-              //         },500)
-              //       } else {
-              //         location.reload();
-              //       }
-              //     },
-              //   })
-              // });
-
-
-            /*]]>*/
-
-            $(document).ready(function() {
-          	$('#summernote').summernote({
-      		  height: 300,                 // 에디터 높이
-      		  minHeight: null,             // 최소 높이
-      		  maxHeight: null,             // 최대 높이
-      		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-      		  lang: "ko-KR",					// 한글 설정
-      		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-
-      	});
-      });
-    </script>
+    <script th:inline="javascript"></script>
   </body>
 </html>

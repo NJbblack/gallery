@@ -1,55 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-                xmlns:th="http://www.thymeleaf.org" 
-                layout:decorate="~{/layout/layout.html}">
-<head>
-  <title>MEMBER JOIN</title>
-</head>
-<body>
-  <div class="container" id="contents" layout:fragment="contents">
-    <h2>JOIN</h2>
-    <form action="/member/join" method="post" class="joinForm" 
-              th:object="${memberDto}"  enctype="multipart/form-data">
-      <h3 class="h3 mb-3 mt-5 fw-normal">Please sign in</h3>
-      <div class="form-floating">
-        <input type="text" class="form-control userId" id="floatingInput" placeholder="User Id" name="userId">
-        <label for="floatingInput">User Id</label>
-        <p th:if="${#fields.hasErrors('userId')}"   th:errorclass="errorTxt" th:errors="*{userId}">에러 메세지 출력</p>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/layout/layout.html}"
+>
+  <head>
+    <title>MEMBER SIGN UP</title>
+  </head>
+  <body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <h2>SIGN UP</h2>
+      <div style="z-index: 99">
+        <form
+          action="/member/join"
+          method="post"
+          th:object="${memberDto}"
+          enctype="multipart/form-data"
+        >
+          <input type="text" placeholder="ID" name="userId" /><br />
+          <input type="password" placeholder="Password" name="userPw" /><br />
+          <input type="text" placeholder="Name" name="userName" /><br />
+          <input type="text" placeholder="Nickname" name="userNickname" /><br />
+          <input
+            type="email"
+            placeholder="name@example.com"
+            name="email"
+          /><br />
+          <input type="text" placeholder="address" name="address" /><br />
+          <input type="file" placeholder="selfie" name="originalFile" /><br />
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </form>
       </div>
-      <div class="form-floating mt-2">
-        <input type="password" class="form-control userPw" id="floatingPassword" placeholder="Password" name="userPw">
-        <label for="floatingPassword">Password</label>
-        <p th:if="${#fields.hasErrors('userPw')}" th:errorclass="errorTxt" th:errors="*{userPw}"></p>
-      </div>
-      <div class="form-floating mt-2">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-        <label for="floatingInput">User Email</label>
-        <p th:if="${#fields.hasErrors('email')}" th:errorclass="errorTxt" th:errors="*{email}"></p>
-      </div>
-      
-      <div class="form-floating mt-2">
-        <input type="text" class="form-control" id="floatingInput" placeholder="User Name" name="userName">
-        <label for="floatingInput">User Name</label>
-        <p th:if="${#fields.hasErrors('userName')}" th:errorclass="errorTxt" th:errors="*{userName}"></p>
-      </div>
-      <div class="mt-2">
-        <input class="form-control" type="file" id="formFile" name="originalFile">
-      </div>
-      <hr>
-      <div>
-        <button class="w-100 btn btn-lg btn-primary btnJoin" type="submit" >Sign in</button>
-        <hr>
-        <a href="/member/login" class="btn btn-lg btn-primary w-100">Log In</a>
-      </div>
-    </form>
-    <script>
-      // $(".btnJoin").on("click",function(){
-      //   if($(".userId").val()=="") {
-      //     alert("아이디를 입력해 주세요.");
-      //     return false;          
-      //   }
-      // })
-    </script>
-  </div>
-</body>
+      <script></script>
+    </div>
+  </body>
 </html>
